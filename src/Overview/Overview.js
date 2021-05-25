@@ -32,21 +32,45 @@ const Filter = styled.input`
   font-size: 23px;
 `;
 
-export function Overview({ data }) {
-  console.log('DATA in overview', data);
-  const history = useHistory();
-  const [filter, setFilter] = useState('');
+const Select = styled.select`
+  font-size: 15px
+`;
 
-  const filteredPokemons = useMemo(() => (
-    data.filter((pokemon) => pokemon.name.includes(filter.toLowerCase()))
-  ), [filter, data])
+export function Overview({ data }) {
+  // console.log('DATA in overview', data);
+  const history = useHistory();
+  const [filter, setFilter] = useState({
+    filterData: '',
+    sortingData: ''
+  });
+
+  const filteredPokemons = useMemo(() => {
+     const filtered = data.filter((pokemon) => {
+      return pokemon.name.includes(filter.filterData.toLowerCase())
+    })
+    let sort = filter.sortingData;
+    if (sort) {
+      if(sort === 'ASC'){
+        return filtered.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+      }else if(sort === 'DSC'){
+        return  filtered.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)).reverse()
+      }else{
+         return filtered
+      }
+    }
+    return filtered
+  }, [filter, data])
 
   const handleCardClick = (id) => {
     history.push(`/${id}`);
   }
 
   const handleFilterChange = (e) => {
-    setFilter(e.target.value);
+    setFilter({...filter, filterData: e.target.value});
+  }
+
+  const handleSorting = (e) => {
+    setFilter({...filter, sortingData: e.target.value})
   }
 
   return (
@@ -55,9 +79,14 @@ export function Overview({ data }) {
         <Filter
           type="text"
           placeholder="Filter pokemons here"
-          value={filter}
+          value={filter.filterData}
           onChange={handleFilterChange}
         />
+        <Select onChange={handleSorting} value={filter.sortingData}>
+          <option value="No sort">No Sorting</option>
+          <option value="ASC">Ascending</option>
+          <option value="DSC">Descending</option>
+        </Select>
       </FiltersContainer>
       <CardsWrapper>
         {
