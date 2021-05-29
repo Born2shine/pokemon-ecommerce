@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { DetailsLayout } from "./components/DetailsLayout";
 import { ImageSection } from "./components/ImageSection";
 import { ThumbnailSection } from "./components/ThumbnailSection";
 import { MetaSection } from "./components/MetaSection";
+import useData from "../Hooks/useFetchData"
 
 const CrossSellingSection = styled.div`
   grid-area: crossselling;
@@ -16,20 +17,9 @@ const CrossSellingSection = styled.div`
 
 export function Details() {
   const { id } = useParams();
-  const [data, setData] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
-
-  useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-      .then((res) => res.json())
-      .then((pokemonData) => {
-        Promise.all(pokemonData.abilities.map((a) => fetch(a.ability.url)))
-          .then((responses) => Promise.all(responses.map((res) => res.json())))
-          .then((abilityData) =>
-            setData({ ...pokemonData, abilities: abilityData })
-          );
-      });
-  }, [id]);
+  const { data } = useData(id);
+  
 
   if (!data) {
     return <span>Loading</span>;
