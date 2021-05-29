@@ -7,6 +7,7 @@ import { ImageSection } from "./components/ImageSection";
 import { ThumbnailSection } from "./components/ThumbnailSection";
 import { MetaSection } from "./components/MetaSection";
 import useData from "../Hooks/useFetchData"
+import Loader from "../Loader/Loader"
 
 const CrossSellingSection = styled.div`
   grid-area: crossselling;
@@ -18,14 +19,12 @@ const CrossSellingSection = styled.div`
 export function Details() {
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState("");
-  const { data } = useData(id);
-  
+  const { data, isLoading } = useData(id);
 
-  if (!data) {
-    return <span>Loading</span>;
-  }
-
-  return (
+  return ( 
+    <>
+    {isLoading && (<Loader/>)}
+    { data &&
     <DetailsLayout>
       <ImageSection
         alt={data.name}
@@ -55,5 +54,7 @@ export function Details() {
         {/* Exercise: Add cards with more pokemon */}
       </CrossSellingSection>
     </DetailsLayout>
+  }
+  </>
   );
 }
