@@ -1,5 +1,5 @@
 import React from 'react'
-import { BiLoaderCircle } from 'react-icons/bi'
+import { ImSpinner8 } from 'react-icons/im'
 import styled, { keyframes } from 'styled-components'
 
 const rotate360 = keyframes`
@@ -14,7 +14,7 @@ const rotate360 = keyframes`
 const Spinner = styled.div`
     animation: ${rotate360} 1s linear infinite;
     transform: translateZ(0);
-    color: grey;
+    color: palevioletred;
     font-size: 2rem;
     position: absolute;
     top:50%;
@@ -22,6 +22,6 @@ const Spinner = styled.div`
     transform: translate(-50%, -50%)
 `;
 
-const Loader = () => <Spinner><BiLoaderCircle/></Spinner>
+const Loader = () => <Spinner><ImSpinner8/></Spinner>
 
 export default Loader
