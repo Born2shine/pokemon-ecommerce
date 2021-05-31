@@ -15,6 +15,26 @@ const DetailsLayout = styled.div`
     "image image meta meta"
     "thumbnails thumbnails meta meta"
     "crossselling crossselling crossselling crossselling";
+  position: relative
+`;
+const ButtonSwitcher = styled.div`
+  position: absolute;
+  top: 30%;
+  background: #d6d5d5;
+  border-radius: 50%;
+  padding: 1rem;
+  cursor: pointer;
+  &:hover{
+    background: #ece8e7;
+  }
+`;
+const Prev = styled(ButtonSwitcher)`
+  left: .5rem;
+  transform: translate(-30%, -.5rem);
+`;
+const Next = styled(ButtonSwitcher)`
+  right: -1rem;
+  transform: translate(-30%, -1rem);
 `;
 
-export { DetailsLayout };
+export { DetailsLayout, Prev, Next };

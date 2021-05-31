@@ -74,15 +74,16 @@ const MetaSection = ({ type, name, price, stats, abilities }) => (
 
     <SubTitle>Abilities</SubTitle>
     {abilities.map((ability) => {
+
       const entryEN = ability.effect_entries.find(
         (e) => e.language.name === "en"
       );
-
-      return (
+      return entryEN !== undefined ? (
         <p key={ability.id}>
           {titleCase(ability.name)}: {entryEN.short_effect}
         </p>
-      );
+      ) : '';
+
     })}
   </Wrapper>
 );
