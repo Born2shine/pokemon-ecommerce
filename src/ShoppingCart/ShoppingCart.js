@@ -3,7 +3,7 @@ import { useState } from "react";
 import { GRAY } from "./constants";
 import { Card } from "./components/Card";
 import { Total } from "./components/Total";
-import { getCartItems, removeFromCart } from "../common/pokemonStorage";
+import { getCartItems, removeFromCart, incrementCartItem, decrementCartItem } from "../common/pokemonStorage";
 
 const LayoutStyle = styled.div`
   display: grid;
@@ -30,6 +30,14 @@ export function ShoppingCart() {
   const handleRemove = (name) => {
     setCart(removeFromCart(name));
   };
+  const handleReduceByOne = (name) => {
+    setCart(decrementCartItem(name))
+  }
+  const handleIncreaseByOne = (name) => {
+    console.log(cart)
+    setCart(incrementCartItem(name))
+  }
+
   if (cart.length === 0) {
     return (
       <LayoutStyle>
@@ -50,12 +58,14 @@ export function ShoppingCart() {
               key={item.name}
               {...item}
               onRemove={() => handleRemove(item.name)}
+              increaseByOne={() => handleIncreaseByOne(item.name)}
+              decreaseByOne={() => handleReduceByOne(item.name)}
             />
           ))}
         </ScrollStyle>
       </PanelStyle>
       <PanelStyle>
-        <Total total={cart.reduce((acc, current) => acc + current.price, 0)} />
+        <Total total={cart.reduce((acc, current) => acc + (current.price * current.quantity), 0)} />
       </PanelStyle>
     </LayoutStyle>
   );

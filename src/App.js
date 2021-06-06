@@ -47,7 +47,7 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-const App = () => {
+const useData = () => {
   const [pokemons, setPokemons] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -71,6 +71,15 @@ const App = () => {
         setIsLoading(false);
       });
   }, []);
+
+  return {
+    pokemons,
+    isLoading,
+  };
+};
+
+const App = () => {
+  const { pokemons, isLoading } = useData();
 
   return (
     <Router>

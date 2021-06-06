@@ -1,6 +1,11 @@
 import styled from "styled-components";
-import { GRAY } from "../constants";
-import { HRStyle } from "./Hr";
+
+
+export const GRAY = `#efeff0`;
+export const HRStyle = styled.hr`
+  border: 0.5px solid ${GRAY};
+`;
+
 
 const CardStyle = styled.div`
   display: grid;
@@ -21,27 +26,16 @@ const CardPriceStyle = styled.div`
   align-items: flex-end;
 `;
 
-const RemoveStyle = styled.a`
-  color: black;
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-export const Card = ({ name, img, type, price, quantity, onRemove, increaseByOne, decreaseByOne }) => (
+export const Card = ({ name, img, type, price, quantity}) => (
   <>
     <CardStyle>
       <img src={img} alt={name} />
       <div>
         <strong>{name}</strong>
         <p>{type}</p>
-        <RemoveStyle onClick={onRemove}>Remove</RemoveStyle>
       </div>
       <CardPriceStyle>
-        <p>
-          <button type="submit" onClick={decreaseByOne}>-</button>  {quantity} <button type="submit" onClick={increaseByOne}>+</button>
-        </p>
+        <p>{quantity}</p>
         <p>{price}</p>
       </CardPriceStyle>
     </CardStyle>

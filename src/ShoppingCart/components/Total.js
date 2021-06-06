@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useHistory } from "react-router-dom"
 import { HRStyle } from "./Hr";
 
 const TotalItemStyle = styled.div`
@@ -28,8 +29,13 @@ const CheckoutButton = styled.button`
   }
 `;
 
-export const Total = ({ total }) => (
-  <div>
+export const Total = ({ total }) => {
+  const history = useHistory();
+
+  const handleCheckout = () =>   history.push(`/checkout`);
+
+  return (
+    <div>
     <h2>Total</h2>
     <TotalItemStyle>
       <span>Subtotal</span>
@@ -41,6 +47,7 @@ export const Total = ({ total }) => (
       <strong>{total}</strong>
     </TotalItemStyle>
     <HRStyle />
-    <CheckoutButton>Checkout</CheckoutButton>
+    <CheckoutButton onClick={handleCheckout}>Checkout</CheckoutButton>
   </div>
-);
+  )
+};

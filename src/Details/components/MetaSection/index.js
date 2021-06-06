@@ -64,7 +64,7 @@ const MetaSection = ({ type, name, price, stats, abilities, onAddToCart }) => (
     <Title>{titleCase(name)}</Title>
 
     <Price>
-      {price} ¥ <PriceTax>VAT included</PriceTax>
+      {price} &euro; <PriceTax>VAT included</PriceTax>
     </Price>
 
     <BuyButton onClick={onAddToCart}>Add to bag</BuyButton>
